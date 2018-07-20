@@ -6,7 +6,7 @@ var path = require('path');
 var route = function route(req, res, next, abe) {
   if(req.query.active != null){
     var json = {deployers:{surge:{active: req.query.active, domain: req.query.domain}}}
-    abe.config.save(json)
+    abe.config.extend(json)
     res.json({'ok': 'ok'})
     return;
   }
