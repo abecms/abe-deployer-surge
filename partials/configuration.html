@@ -83,7 +83,7 @@
                     <input type="text" name="surge_domain" id="surge_domain" value="{{@root.config.deployers.surge.domain}}" class="form-control form-edit">
                   </div>
                   <br>
-                  <button class="btn btn-info" id="save" >
+                  <button class="btn btn-info" id="save">
                     <span>
                       Save
                     </span>
@@ -123,7 +123,7 @@
       btn.classList.add('disabled');
 
       var request = new XMLHttpRequest();
-      request.open('GET', saveUrl + "?active=" + active.value + "&domain=" + domain.value);
+      request.open('GET', saveUrl + "?active=" + active.checked + "&domain=" + domain.value);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       request.onreadystatechange = function() {
         if(request.readyState == 4 && request.status == 200) {
