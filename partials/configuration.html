@@ -76,7 +76,7 @@
                 </div>
                 <div class="manager-tab-content">
                   <div class="checkbox">
-                    <label><input type="checkbox" name="surge_active" id="surge_active" value="{{@root.config.deployers.surge.active}}">Active</label>
+                    <label><input type="checkbox" name="surge_active" id="surge_active" {{#if @root.config.deployers.surge.active}}checked="checked"{{/if}}>Active</label>
                   </div>
                   <div class="input-group">
                     <div class="label-input">Domain</div>
