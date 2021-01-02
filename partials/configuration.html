@@ -1,107 +1,89 @@
-<!DOCTYPE html>
-<html data-config='{"URL":"{{abeUrl}}","EXTENSION":"{{@root.config.files.templates.extension}}","TPLPATH":"{{@root.json.abe_meta.template}}","TPLNAME":"{{tplName}}","FILEPATH":"{{@root.json.abe_meta.link}}"}'
-      data-slugs='{{{printJson @root.slugs}}}'
-      data-json='{{{printJson json 1}}}'
-      data-Locales='{{{printJson Locales}}}' >
-  <head>
-    <title>Abe</title>
-    {{abeImport 'common-styles' manager.config this}}
-    <style>
-      html,
-      body{
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-      }
-      .label-input{
-        padding: 10px 0;
-      }
-      .input-group{
-        width: 100%;
-      }
-      .form-edit{
-        display: block !important;
-        width: 100% !important;
-        max-width: 400px !important;
-      }
-      .notif{
-        color: #adadad;
-        display: block;
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        padding: 30px 20px;
-        background: #f1f1f1;
-        box-shadow: 0px 6px 7px -2px rgba(0,0,0,0.15);
-        transition: all 300ms ease-in-out;
+{{#extend "layout"}}
+  {{#content "head" mode="append"}}
+  <style>
+    .label-input{
+      padding: 10px 0;
+    }
+    .input-group{
+      width: 100%;
+    }
+    .form-edit{
+      display: block !important;
+      width: 100% !important;
+      max-width: 400px !important;
+    }
+    .notif{
+      color: #adadad;
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 30px 20px;
+      background: #f1f1f1;
+      box-shadow: 0px 6px 7px -2px rgba(0,0,0,0.15);
+      transition: all 300ms ease-in-out;
 
-        opacity: 0;
-        transform: translate3d(120%, 0, 0);
-      }
-      .notif-close{
-        position: absolute;
-        top: 6px;
-        right: 5px;
-        background: #e4e4e4;
-        font-size: 10px;
-        display: block;
-        height: 17px;
-        width: 17px;
-        text-align: center;
-        border-radius: 10px;
-        line-height: 15px;
-        color: #f1f1f1;
-        text-decoration: none;
-      }
-      .notif.on{
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-      }
-    </style>
+      opacity: 0;
+      transform: translate3d(120%, 0, 0);
+    }
+    .notif-close{
+      position: absolute;
+      top: 6px;
+      right: 5px;
+      background: #e4e4e4;
+      font-size: 10px;
+      display: block;
+      height: 17px;
+      width: 17px;
+      text-align: center;
+      border-radius: 10px;
+      line-height: 15px;
+      color: #f1f1f1;
+      text-decoration: none;
+    }
+    .notif.on{
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  </style>
+  {{/content}}
 
-  </head>
-  <body class="with-menu engine-open">
-    {{abeImport 'header-menu' manager.config this}}
-    <div class="container-main">
-      <div class="container-table">
-        <div>
-          <div class="no-gutter manager-wrapper visible">
-            <div class="manager-left form-wrapper">
-              {{abeImport 'main-menu' manager.config this}}
-            </div>
-            <div class="manager-right tab">
-              <div class="manager-tab">
-                <div class="text-uppercase">
-                  Surge configuration
-                </div>
-                <div class="manager-tab-content">
-                  <div class="checkbox">
-                    <label><input type="checkbox" name="surge_active" id="surge_active" {{#if @root.config.deployers.surge.active}}checked="checked"{{/if}}>Active</label>
-                  </div>
-                  <div class="input-group">
-                    <div class="label-input">Domain</div>
-                    <input type="text" name="surge_domain" id="surge_domain" value="{{@root.config.deployers.surge.domain}}" class="form-control form-edit">
-                  </div>
-                  <br>
-                  <button class="btn btn-info" id="save">
-                    <span>
-                      Save
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
+  {{#content "breadcrumbs"}} {{/content}}
+
+  {{#content "body"}}
+    <div class="manager-tab structure-folders">
+      <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Surge configuration</h1>
+        <p class="lead">Activate Surge and enter the Surge URL. Each time you'll publish your content from the editor, your website will be published on the domain</p>
+      </div>
+      <div class="manager-tab">
+        <div class="text-uppercase">
+          Surge configuration
+        </div>
+        <div class="manager-tab-content">
+          <div class="checkbox">
+            <label><input type="checkbox" name="surge_active" id="surge_active" {{#if @root.config.deployers.surge.active}}checked="checked"{{/if}}>Active</label>
           </div>
+          <div class="input-group">
+            <div class="label-input">Domain</div>
+            <input type="text" name="surge_domain" id="surge_domain" value="{{@root.config.deployers.surge.domain}}" class="form-control form-edit">
+          </div>
+          <br>
+          <button class="btn btn-info" id="save">
+            <span>
+              Save
+            </span>
+          </button>
         </div>
       </div>
     </div>
-    {{abeImport 'common-scripts' manager.config this}}
-
     <div class="notif" id="notif">
       <a class="notif-close" id="notif-close" href="#">x</a>
       Configuration saved successfully !
     </div>
+  {{/content}}
 
+  {{#content "bottom-scripts" mode="append"}}
   <script>
     var btn = document.getElementById('save');
     var domain = document.getElementById('surge_domain');
@@ -136,5 +118,5 @@
       request.send();
     });
   </script>
-  </body>
-</html>
+  {{/content}}
+{{/extend}}
